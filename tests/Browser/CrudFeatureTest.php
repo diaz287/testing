@@ -33,9 +33,8 @@ class CrudFeatureTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/products/create')
-                ->type('name', $this->testProductName)
-                ->type('price', $this->testProductPrice)
-                ->press('Simpan')
+                ->type('#name', $this->testProductName)
+                ->type('#price', $this->testProductPrice)
                 ->assertPathIs('/products')
                 ->assertSee('Data berhasil ditambahkan')
                 ->assertSee('Rp ' . number_format($this->testProductPrice, 0, ',', '.'));
@@ -66,8 +65,8 @@ class CrudFeatureTest extends DuskTestCase
             $browser->visit('/products')
                 ->clickXPath("//tr[td[contains(text(), '{$this->testProductName}')]]//a[contains(@class,'btn-edit')]")
                 ->assertPathStartsWith('/products/')
-                ->clear('price')
-                ->type('price', $this->testProductPriceUpdated)
+                ->clear('#price')
+                ->type('#price', $this->testProductPriceUpdated)
                 ->press('Update')
                 ->assertPathIs('/products')
                 ->assertSee('Data berhasil diperbarui')
